@@ -1,30 +1,36 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
+
 <body class="container">
+<h1>Enter an Event You Would Like to Create:</h1>
 
-<header th:replace="fragments :: header"></header>
+<!--? Here we are adding our error message <p> tag that will appear if the validation in the controller returns true, and there are indeed errors. It will return the value of "errorMsg" that was set in the controller -->
+<!--? Now when you don't enter any data, you are directed back to the form, but with an error message displayed to the user to help them fix the problem-->
+<p th:text="${errorMsg}" style="color:red;"></p>
 
-<form method="post">
+
+<!--    TODO: we are going to replace the input boxes names to match the field names of the event object (name & description)
+                This will allow Spring to find the fields. Otherwise Spring wont know how to assign the properties when an event is created
+                If a form field name does NOT match up with a model field, then binding will fail for that piece of data. It is critically important to ensure these names match up.-->
+<nav th:replace="fragments :: navigation"></nav>
+<form method="POST" >
     <div class="form-group">
-        <label>Name
-            <input type="text" name="eventName" class="form-control">
+        <label> Event Name
+            <input type="text" name="name" class="form-control">
         </label>
-    </div>
-    <div class="form-group">
-        <label>Description
-            <input type="text" name="eventDescription" class="form-control">
+        <label> Description
+            <input type="text" name="description" class="form-control">
         </label>
-    </div>
-    <div class="form-group">
-        <label>Contact Email
+        <label> Contact Email
             <input type="email" name="contactEmail" class="form-control">
         </label>
     </div>
     <div class="form-group">
-        <input type="submit" value="Create" class="btn btn-success">
+        <input type="submit" value="Create Event" class="btn btn-success">
     </div>
 </form>
-
 </body>
 </html>
+
+<!--? We added a label and input field for Contact Email. We made sure to name it contactEmail to match the field for Model binding-->

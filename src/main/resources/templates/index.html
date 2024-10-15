@@ -1,11 +1,46 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
-<body class="container">
 
 <h1>Coding Events</h1>
-
 <header th:replace="fragments :: header"></header>
+
+
+<body class="container">
+<h1> All the Events to Watch for!</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<!--    This is an unless, which means that code will execute if it returns false-->
+<!--    BREAKDOWN: Is there something called events? Do I have a non-null variable called events? If so,-->
+<!--                let me make sure there are things inside of that variable... So if we don't have an events variable-->
+<!--                and there is nothing inside... then display "No Events Yet!"-->
+<p th:unless="${events} and ${events.size()}" >No Events Yet!</p>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Event Name</th>
+        <th>Event Description</th>
+        <th>Event Location</th>
+        <th>Contact Email</th>
+    </tr>
+    </thead>
+<!--     TODO:We now are using an ArrayList of Event Objects, so we are going to access info through their fields (name & description)
+                         The syntax event.fieldName runs a getter method behind the scenes in order to access a field-->
+    <tr th:each="event : ${events}">
+        <td th:text="${event.id}"></td>
+        <td th:text="${event.name}"></td>
+        <td th:text="${event.description}"></td>
+        <td th:text="${event.contactEmail}"></td>
+        <td>
+            <a th:href="@{/events/edit/{id}(id=${event.id})}">Edit</a>
+        </td>
+        <td th:fragment="fragment.address">123456 Coder Dr STL</td>
+    </tr>
+</table>
 
 </body>
 </html>
+<!--? So, we added a contactEmail field, and we needed to add it to the table. So, we added a <th> for Contact Email and a <td> for contactEmail -->
