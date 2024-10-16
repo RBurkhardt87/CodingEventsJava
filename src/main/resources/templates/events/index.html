@@ -12,6 +12,11 @@
         <th>Name</th>
         <th>Description</th>
         <th>Contact Email</th>
+        <th>Event Location</th>
+        <th>Registered Event</th>
+        <th>Number of Attendees</th>
+        <th>Event Date</th>
+        <th>Time of Event</th>
     </tr>
     </thead>
     <tr th:each="event : ${events}">
@@ -19,6 +24,16 @@
         <td th:text="${event.name}"></td>
         <td th:text="${event.description}"></td>
         <td th:text="${event.contactEmail}"></td>
+        <td th:text="${event.location}"></td>
+        <td th:text="${event.mustRegister}"></td>
+        <td th:text="${event.numberOfAttendees}"></td>
+        <!--? BY USING THE THYMELEAF FORMAT FOR DATE BELOW, IT JUST SHOWS THE DATE AND NOT THE TIME WITH IT -->
+        <!--? EXAMPLE: WITHOUT THE FORMATTING:  	Fri Nov 22 00:00:00 CST 2024 -->
+        <!--?          AFTER THE FORMAT WAS ADDED:   	Fri Nov 22 2024  -->
+        <td th:text="${#dates.format(event.date, 'EEE MMM dd yyyy')}"></td>
+
+        <td th:text="${event.time}"></td>
+
     </tr>
 </table>
 
